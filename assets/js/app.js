@@ -30,7 +30,7 @@
       const $grid = qs('#booksGrid');
       const $search = qs('#search');
       const $tags = qs('#tagFilter');
-      fetch('/data/books.json').then(r=>r.json()).then(list=>{
+      fetch('data/books.json').then(r=>r.json()).then(list=>{
         // Fill tag filter
         const tagSet = new Set();
         list.forEach(b => (b.tags||[]).forEach(t=>tagSet.add(t)));
@@ -64,7 +64,7 @@
         const progress = b.pages ? Math.min(100, Math.round((last-1)/b.pages*100)) : 0;
         return `
           <article class="card">
-            <a href="${b.url||('/books/'+b.slug+'/')}" aria-label="Открыть книгу ${b.title}">
+            <a href="${b.url||('books/'+b.slug+'/')}" aria-label="Открыть книгу ${b.title}">
               <img class="thumb" src="${b.cover}" alt="Обложка ${b.title}" loading="lazy" />
             </a>
             <div class="body">
@@ -74,8 +74,8 @@
             </div>
             <div class="progress" title="Прогресс чтения: ${progress}%"><span data-w="${progress}"></span></div>
             <div class="body">
-              <a class="btn" href="${'/books/'+b.slug+'/'}">Открыть</a>
-              <a class="btn btn-ghost" href="${'/books/'+b.slug+'/pages/'+String(localStorage.getItem('lastPage:'+b.slug)||'001').padStart(3,'0')+'.html'}">Продолжить</a>
+              <a class="btn" href="${'books/'+b.slug+'/'}">Открыть</a>
+              <a class="btn btn-ghost" href="${'books/'+b.slug+'/pages/'+String(localStorage.getItem('lastPage:'+b.slug)||'001').padStart(3,'0')+'.html'}">Продолжить</a>
             </div>
           </article>`;
       }
