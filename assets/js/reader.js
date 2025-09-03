@@ -17,6 +17,9 @@
   
       // Построить каркас
       buildSkeleton();
+      
+      // Dispatch event when reader is ready
+      document.dispatchEvent(new Event('reader:ready'));
   
       // Вставить контент
       const $contentSrc = qs('#reader-content-src'); // исходный контент пользователя
