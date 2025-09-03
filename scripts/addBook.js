@@ -11,6 +11,11 @@
  *   1) Создаёт /books/<slug>/{index.html, book.json, /img, /pages, /extras}
  *   2) Создаёт N страниц /pages/001.html...NNN.html с минимальным контентом
  *   3) Добавляет/обновляет запись в /data/books.json (каталог)
+
+
+ * addBook.js — генератор болванки книги
+ * - относительные пути (для GitHub Pages project site)
+ * - копирование плейсхолдеров обложек из assets/img/
  */
 
 const fs = require("fs");
@@ -19,13 +24,13 @@ const path = require("path");
 
 const argv = parseArgs(process.argv.slice(2));
 if (!argv.title) {
-  console.error("❌ Требуется --title \"Название книги\"");
+  console.error('❌ Требуется --title "Название книги"');
   process.exit(1);
 }
 
 const ROOT = path.resolve(argv.root || ".");
 const TITLE = String(argv.title).trim();
-const SUBTITLE = (argv.subtitle ? String(argv.subtitle).trim() : "").trim();
+const SUBTITLE = (argv.subtitle ? String(argv.subtitle).trim() : "");
 const AUTHOR = (argv.author ? String(argv.author) : "Vitalik").trim();
 const SERIES = (argv.series ? String(argv.series) : "NASTAVNIK").trim();
 const TAGS = (argv.tags ? String(argv.tags).split(",").map(s=>s.trim()).filter(Boolean) : []);
@@ -64,16 +69,26 @@ const SLUG = (argv.slug ? String(argv.slug) : slugify(TITLE)).toLowerCase();
 
   // write book.json
   const bookJsonPath = path.join(bookRoot, "book.json");
-  const bookJson = makeBookJson({ title: TITLE, subtitle: SUBTITLE, author: AUTHOR, series: SERIES, pagesTotal: PAGES, slug: SLUG, tags: TAGS, year: YEAR });
+  const bookJson = makeBookJson({
+    title: TITLE, subtitle: SUBTITLE, author: AUTHOR, series: SERIES,
+    pagesTotal: PAGES, slug: SLUG, tags: TAGS, year: YEAR
+  });
   await writeFileSafe(bookJsonPath, JSON.stringify(bookJson, null, 2), FORCE);
 
   // write landing index.html
   const landingPath = path.join(bookRoot, "index.html");
   await writeFileSafe(landingPath, makeLandingHtml({ slug: SLUG, title: TITLE, subtitle: SUBTITLE }), FORCE);
 
-  // image placeholders (пустые файлы для последующей замены)
-  await writeFileSafe(path.join(bookRoot, "img", "cover.jpg"), "", false);
-  await writeFileSafe(path.join(bookRoot, "img", "hero-wide.jpg"), "", false);
+  // copy placeholders -> book/img/cover.jpg & hero-wide.jpg
+  const srcCoverPh = path.join(ROOT, "assets", "img", "cover.jpg");
+  const srcHeroPh  = path.join(ROOT, "assets", "img", "hero-wide.jpg");
+  const dstCover   = path.join(bookRoot, "img", "cover.jpg");
+  const dstHero    = path.join(bookRoot, "img", "hero-wide.jpg");
+
+  await copyOrEmpty(srcCoverPh, dstCover, FORCE, "cover");
+  await copyOrEmpty(srcHeroPh,  dstHero,  FORCE, "hero-wide", { fallback: srcCoverPh });
+
+  // extras placeholder
   await writeFileSafe(path.join(bookRoot, "extras", "README.txt"), "Put PDF/EPUB here later.\n", false);
 
   // pages
@@ -89,12 +104,12 @@ const SLUG = (argv.slug ? String(argv.slug) : slugify(TITLE)).toLowerCase();
     slug: SLUG,
     title: TITLE,
     subtitle: SUBTITLE || "",
-    cover: `/books/${SLUG}/img/cover.jpg`,
+    cover: `books/${SLUG}/img/cover.jpg`,
     tags: TAGS,
     year: YEAR,
     status: "online",
     pages: PAGES,
-    url: `/books/${SLUG}/`
+    url: `books/${SLUG}/`
   });
 
   console.log("✅ Done. Болванка книги готова.");
@@ -118,7 +133,7 @@ async function upsertCatalog(catalogPath, entry){
   }
   const idx = list.findIndex(x => x.slug === entry.slug);
   if (idx >= 0) {
-    list[idx] = { ...list[idx], ...entry }; // обновляем
+    list[idx] = { ...list[idx], ...entry };
     console.log("📝 Catalog updated:", entry.slug);
   } else {
     list.push(entry);
@@ -137,7 +152,7 @@ function makeBookJson({title, subtitle, author, series, pagesTotal, slug, tags, 
     subtitle,
     author,
     series,
-    cover: `/books/${slug}/img/cover.jpg`,
+    cover: "img/cover.jpg",
     pagesTotal,
     description: subtitle || "Описание появится позже.",
     toc,
@@ -161,19 +176,19 @@ function makeLandingHtml({ slug, title, subtitle }){
   <meta name="description" content="${escapeHtml(subtitle || "Book landing page")}" />
   <meta property="og:title" content="${escapeHtml(title)}" />
   <meta property="og:description" content="${escapeHtml(subtitle || "")}" />
-  <meta property="og:image" content="/books/${slug}/img/hero-wide.jpg" />
-  <link rel="stylesheet" href="/assets/css/base.css" />
+  <meta property="og:image" content="img/hero-wide.jpg" />
+  <link rel="stylesheet" href="../../assets/css/base.css" />
 </head>
 <body data-page="book-landing" data-meta="./book.json" data-slug="${slug}">
   <header class="site-header">
     <div class="container header-inner">
-      <div class="brand"><a href="/">VITALIK BOOKS</a></div>
+      <div class="brand"><a href="../../">VITALIK BOOKS</a></div>
       <nav class="actions"><button id="themeToggle" class="btn btn-ghost">🌓</button></nav>
     </div>
   </header>
   <main class="container">
     <section class="hero">
-      <img src="./img/hero-wide.jpg" alt="Hero" class="thumb"/>
+      <img src="img/hero-wide.jpg" alt="Hero" class="thumb"/>
       <h1 id="bookTitle">${escapeHtml(title)}</h1>
       <p id="bookSubtitle" class="lead">${escapeHtml(subtitle || "")}</p>
       <div class="cta-row">
@@ -196,7 +211,7 @@ function makeLandingHtml({ slug, title, subtitle }){
       <div class="footer-links"><a href="#" id="toTop">Наверх ↑</a></div>
     </div>
   </footer>
-  <script src="/assets/js/app.js" defer></script>
+  <script src="../../assets/js/app.js" defer></script>
 </body>
 </html>`;
 }
@@ -211,12 +226,12 @@ function makePageHtml({ slug, title, page }){
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${escapeHtml(title)} — Стр. ${page}</title>
   <meta name="description" content="${escapeHtml(title)} — page ${page}" />
-  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="../../assets/css/base.css" />
 </head>
 <body data-page="reader" data-meta="../book.json" data-slug="${slug}" data-page="${page}">
   <header class="site-header">
     <div class="container header-inner">
-      <div class="brand"><a href="/">VITALIK BOOKS</a></div>
+      <div class="brand"><a href="../../">VITALIK BOOKS</a></div>
       <nav class="actions">
         <a class="btn btn-ghost" href="../index.html">Содержание</a>
         <button id="themeToggle" class="btn btn-ghost">🌓</button>
@@ -267,9 +282,35 @@ function makePageHtml({ slug, title, page }){
       <div class="footer-links"><a href="#" id="toTop">Наверх ↑</a></div>
     </div>
   </footer>
-  <script src="/assets/js/app.js" defer></script>
+  <script src="../../assets/js/app.js" defer></script>
 </body>
 </html>`;
+}
+
+async function copyOrEmpty(src, dest, force, label, opts = {}){
+  const existsDest = await fileExists(dest);
+  if (existsDest && !force) {
+    // Не трогаем существующий
+    return;
+  }
+  const okSrc = await fileExists(src);
+  if (okSrc) {
+    await fsp.copyFile(src, dest);
+    console.log(`🖼️  ${label}: copied placeholder → ${path.relative(process.cwd(), dest)}`);
+    return;
+  }
+  // fallback?
+  if (opts.fallback) {
+    const okFallback = await fileExists(opts.fallback);
+    if (okFallback) {
+      await fsp.copyFile(opts.fallback, dest);
+      console.log(`🖼️  ${label}: placeholder missing, used fallback → ${path.relative(process.cwd(), dest)}`);
+      return;
+    }
+  }
+  // пустой, если ничего нет
+  await fsp.writeFile(dest, "");
+  console.warn(`⚠️  ${label}: no placeholder found (created empty) → ${path.relative(process.cwd(), dest)}`);
 }
 
 async function ensureDirs(list){
@@ -288,13 +329,11 @@ async function fileExists(p){
 }
 
 function pad3(n){ return String(n).padStart(3, "0"); }
-
 function clampInt(value, def, min, max){
   const n = parseInt(value, 10);
   if (Number.isNaN(n)) return def;
   return Math.max(min, Math.min(max, n));
 }
-
 function parseArgs(args){
   const out = {};
   for (let i=0; i<args.length; i++){
@@ -319,13 +358,9 @@ function slugify(str){
     'Ш':'sh','Щ':'sch','Ъ':'','Ы':'y','Ь':'','Э':'e','Ю':'yu','Я':'ya'
   };
   return str
-    .split("")
-    .map(ch => map[ch] ?? ch)
-    .join("")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .replace(/--+/g, "-");
+    .split("").map(ch => map[ch] ?? ch).join("")
+    .toLowerCase().replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "").replace(/--+/g, "-");
 }
 
 function escapeHtml(s){

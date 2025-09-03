@@ -20,5 +20,16 @@
     "status": "online",
     "pages": 10,
     "url": "books/nastavnik-13-primer/"
+  },
+  {
+    "slug": "nastavnik-17-primer",
+    "title": "НАСТАВНИК 17 — Пример",
+    "subtitle": "",
+    "cover": "books/nastavnik-17-primer/img/cover.jpg",
+    "tags": [],
+    "year": 2025,
+    "status": "online",
+    "pages": 10,
+    "url": "books/nastavnik-17-primer/"
   }
 ]
