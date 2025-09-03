@@ -1,0 +1,29 @@
+{
+  "title": "НАСТАВНИК 18 — Пример",
+  "subtitle": "",
+  "author": "Vitalik",
+  "series": "NASTAVNIK",
+  "cover": "img/cover.jpg",
+  "pagesTotal": 10,
+  "description": "Описание появится позже.",
+  "toc": [
+    {
+      "label": "Вступление",
+      "page": 1
+    },
+    {
+      "label": "Глава 1",
+      "page": 2
+    }
+  ],
+  "keywords": [
+    "book",
+    "series"
+  ],
+  "cta": {
+    "startPage": 1,
+    "continueEnabled": true,
+    "subscribeUrl": "https://t.me/"
+  },
+  "year": 2025
+}

@@ -216,9 +216,8 @@ function makeLandingHtml({ slug, title, subtitle }){
 </html>`;
 }
 
-function makePageHtml({ slug, title, page }){
-  const prev = Math.max(1, page - 1);
-  const next = page + 1;
+function makePageHtml({ slug, title, page }) {
+  const pageStr = pad3(page);
   return `<!doctype html>
 <html lang="ru">
 <head>
@@ -226,66 +225,23 @@ function makePageHtml({ slug, title, page }){
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${escapeHtml(title)} — Стр. ${page}</title>
   <meta name="description" content="${escapeHtml(title)} — page ${page}" />
-  <link rel="stylesheet" href="../../assets/css/base.css" />
+  <!-- Явно подключаем базовый CSS, чтобы не было мигания до инициализации reader.js -->
+  <link rel="stylesheet" href="../../../assets/css/base.css" />
 </head>
-<body data-page="reader" data-meta="../book.json" data-slug="${slug}" data-page="${page}">
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand"><a href="../../">VITALIK BOOKS</a></div>
-      <nav class="actions">
-        <a class="btn btn-ghost" href="../index.html">Содержание</a>
-        <button id="themeToggle" class="btn btn-ghost">🌓</button>
-      </nav>
-    </div>
-  </header>
+<body data-slug="${escapeHtml(slug)}" data-page="${page}">
+  <!-- Твой контент страницы: -->
+  <div id="reader-content">
+    <h1 style="display:none">${escapeHtml(title)}</h1> <!-- заголовок для SEO, reader.js подставит свой h1 -->
+    <p>Текст появится позже.</p>
+  </div>
 
-  <main class="container reader-layout">
-    <aside class="reader-aside">
-      <div class="reader-panel">
-        <h4>Навигация</h4>
-        <div class="reader-controls">
-          <a id="prevBtn" class="btn btn-ghost" href="./${pad3(prev)}.html">← Предыдущая</a>
-          <a id="nextBtn" class="btn" href="./${pad3(next)}.html">Следующая →</a>
-        </div>
-      </div>
-      <div class="reader-panel">
-        <h4>Настройки</h4>
-        <div class="reader-controls">
-          <button id="fontMinus" class="btn btn-ghost">Шрифт −</button>
-          <button id="fontPlus" class="btn">Шрифт +</button>
-        </div>
-        <div class="progress" style="margin-top:10px"><span id="progressBar" style="width:0"></span></div>
-        <p class="small">Горячие клавиши: ← →, t, +, −</p>
-      </div>
-      <div class="reader-panel">
-        <h4>Содержание</h4>
-        <ol id="tocList"></ol>
-      </div>
-    </aside>
-
-    <article class="reader-main">
-      <div class="reader-article">
-        <h1>${escapeHtml(title)}</h1>
-        <p class="meta">Стр. ${page}</p>
-        <p>Текст появится позже.</p>
-      </div>
-      <nav class="reader-nav">
-        <a id="prevBtn" class="btn btn-ghost" href="./${pad3(prev)}.html">← Назад</a>
-        <a id="nextBtn" class="btn" href="./${pad3(next)}.html">Дальше →</a>
-      </nav>
-    </article>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>© <span id="year"></span> ${new Date().getFullYear()} Виталик</div>
-      <div class="footer-links"><a href="#" id="toTop">Наверх ↑</a></div>
-    </div>
-  </footer>
-  <script src="../../assets/js/app.js" defer></script>
+  <!-- Стандартные части доклеит скрипт: -->
+  <script src="../../../assets/js/app.js" defer></script>
+  <script src="../../../assets/js/reader.js" defer></script>
 </body>
 </html>`;
 }
+
 
 async function copyOrEmpty(src, dest, force, label, opts = {}){
   const existsDest = await fileExists(dest);

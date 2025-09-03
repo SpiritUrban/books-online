@@ -11,25 +11,14 @@
     "url": "books/nastavnik-12-lichnaya-pobeda/"
   },
   {
-    "slug": "nastavnik-13-primer",
-    "title": "НАСТАВНИК 13 — Пример",
+    "slug": "nastavnik-18-primer",
+    "title": "НАСТАВНИК 18 — Пример",
     "subtitle": "",
-    "cover": "books/nastavnik-13-primer/img/cover.jpg",
+    "cover": "books/nastavnik-18-primer/img/cover.jpg",
     "tags": [],
     "year": 2025,
     "status": "online",
     "pages": 10,
-    "url": "books/nastavnik-13-primer/"
-  },
-  {
-    "slug": "nastavnik-17-primer",
-    "title": "НАСТАВНИК 17 — Пример",
-    "subtitle": "",
-    "cover": "books/nastavnik-17-primer/img/cover.jpg",
-    "tags": [],
-    "year": 2025,
-    "status": "online",
-    "pages": 10,
-    "url": "books/nastavnik-17-primer/"
+    "url": "books/nastavnik-18-primer/"
   }
 ]
