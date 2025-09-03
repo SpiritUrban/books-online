@@ -1,0 +1,41 @@
+{
+  "name": "books-online",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal online library — NASTAVNIK series & more.",
+  "author": "SpiritUrban",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpiritUrban/books-online.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SpiritUrban/books-online/issues"
+  },
+  "homepage": "https://spiriturban.github.io/books-online/",
+  "type": "commonjs",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "dev": "live-server --port=5500 --open=index.html --wait=200",
+    "start": "npm run dev",
+    "add:book": "node scripts/addBook.js",
+    "audit": "node scripts/audit.js",
+    "audit:fix": "node scripts/audit.js --fix",
+    "test": "echo \"No tests\""
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "books",
+    "nastavnik",
+    "library",
+    "github-pages",
+    "SpiritUrban"
+  ]
+}
