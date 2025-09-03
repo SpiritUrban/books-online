@@ -105,7 +105,7 @@
       return `
   <header class="site-header">
     <div class="container header-inner">
-      <div class="brand"><a id="homeLink" href="#">VITALIK BOOKS</a></div>
+      <div class="brand"><a id="homeLink" href="${relToRoot('')}">VITALIK BOOKS</a></div>
       <nav class="actions">
         <a class="btn btn-ghost" id="tocLink" href="#">Содержание</a>
         <button id="themeToggle" class="btn btn-ghost">🌓</button>
@@ -253,7 +253,7 @@
     function relToRoot(path) {
       // Относительный путь до корня репозитория из pages/*: два уровня вверх
       // (для страниц чтения этого достаточно; если используешь скрипт где-то ещё, доработаем логику)
-      const prefix = '../../';
+      const prefix = '../../../';
       return prefix + (path || '');
     }
   
