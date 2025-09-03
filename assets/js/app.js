@@ -25,6 +25,48 @@
     if(pageType === 'catalog') initCatalog();
     if(pageType === 'book-landing') initBookLanding();
     if(pageType === 'reader') initReader();
+
+    // Initialize Continue Reading button if it exists
+    const $continueBtn = document.getElementById('continueReadingBtn');
+    if ($continueBtn) {
+        // Find the most recently read book
+        let lastBookSlug = null;
+        let lastPage = 1;
+        let lastBookTitle = 'книгу';
+        
+        // Get all keys from localStorage that start with 'lastPage:'
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith('lastPage:')) {
+                const slug = key.replace('lastPage:', '');
+                const page = parseInt(localStorage.getItem(key), 10) || 1;
+                
+                // If this book was read more recently than the current last book
+                if (page > 1 && page > lastPage) {
+                    lastBookSlug = slug;
+                    lastPage = page;
+                    
+                    // Try to get the book title from localStorage if available
+                    const bookData = localStorage.getItem(`book:${slug}`);
+                    if (bookData) {
+                        try {
+                            const book = JSON.parse(bookData);
+                            lastBookTitle = book.title || 'книгу';
+                        } catch (e) {
+                            console.error('Error parsing book data:', e);
+                        }
+                    }
+                }
+            }
+        }
+        
+        // If we found a book to continue reading
+        if (lastBookSlug && lastPage > 1) {
+            $continueBtn.style.display = 'inline-flex';
+            $continueBtn.href = `books/${lastBookSlug}/pages/${String(lastPage).padStart(3, '0')}.html`;
+            $continueBtn.title = `Продолжить чтение «${lastBookTitle}» (страница ${lastPage})`;
+        }
+    }
   
     function initCatalog(){
       const $grid = qs('#booksGrid');
