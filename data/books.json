@@ -4,10 +4,27 @@
     "title": "НАСТАВНИК 18 — Пример",
     "subtitle": "",
     "cover": "books/nastavnik-18-primer/img/cover.jpg",
-    "tags": ["саморазвитие", "пример для подражания", "лидерство", "достижение целей"],
+    "tags": [
+      "саморазвитие",
+      "пример для подражания",
+      "лидерство",
+      "достижение целей"
+    ],
     "year": 2025,
     "status": "online",
     "pages": 10,
     "url": "books/nastavnik-18-primer/"
+  },
+  {
+    "slug": "uchebnik-novoe-programmirovanie-ii",
+    "title": "Учебник: Новое программирование — работа с ИИ",
+    "subtitle": "Владение ИИ как новым языком: уровни, методики, практики",
+    "cover": "books/uchebnik-novoe-programmirovanie-ii/img/cover.jpg",
+    "tags": ["ИИ", "методологии", "промптинг", "обучение", "диалоговые архитектуры"],
+    "year": 2025,
+    "status": "online",
+    "pages": 20,
+    "url": "books/uchebnik-novoe-programmirovanie-ii/"
   }
+  
 ]

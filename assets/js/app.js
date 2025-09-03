@@ -173,8 +173,8 @@
   }
   
     function initBookLanding(){
-      const slug = document.body.getAttribute('data-book-slug');
-      const metaPath = `books/${slug}/meta.json`;
+      const slug = document.body.getAttribute('data-slug');
+      const metaPath = `./book.json`;
       
       // Save book metadata for continue reading
       fetch(metaPath)
@@ -198,9 +198,9 @@
     }
   
     function initReader(){
-      const slug = document.body.getAttribute('data-book-slug');
+      const slug = document.body.getAttribute('data-slug');
       const page = parseInt(document.body.getAttribute('data-page-num') || '1', 10);
-      const metaPath = `books/${slug}/meta.json`;
+      const metaPath = `../book.json`;
       
       // Save reading progress and timestamp
       localStorage.setItem('lastPage:'+slug, String(page));
