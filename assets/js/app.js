@@ -65,7 +65,7 @@
         return `
           <article class="card">
             <a href="${b.url||('books/'+b.slug+'/')}" aria-label="Открыть книгу ${b.title}">
-              <img class="thumb" src="${b.cover}" alt="Обложка ${b.title}" loading="lazy" />
+              <img class="thumb" src="${b.cover}" alt="Обложка ${b.title}" loading="lazy" onerror="this.src='assets/img/cover-placeholder.jpg'" />
             </a>
             <div class="body">
               <h3>${b.title}</h3>
