@@ -23,10 +23,15 @@
     "add:book": "node scripts/addBook.js",
     "audit": "node scripts/audit.js",
     "audit:fix": "node scripts/audit.js --fix",
-    "test": "echo \"No tests\""
+    "test": "echo \"No tests\"",
+    "img:opt": "node scripts/optimize-images.js",
+    "img:opt:covers": "node scripts/optimize-images.js --only=covers",
+    "img:opt:heroes": "node scripts/optimize-images.js --only=heroes",
+    "img:webp": "node scripts/optimize-images.js --webp"
   },
   "devDependencies": {
-    "live-server": "^1.2.2"
+    "live-server": "^1.2.2",
+    "sharp": "^0.34.3"
   },
   "engines": {
     "node": ">=18"
