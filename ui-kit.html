@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UI Kit</title>
+  <link rel="stylesheet" href="/assets/css/base.css" />
+</head>
+<body data-page="ui-kit">
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand"><a href="/">VITALIK BOOKS</a></div>
+      <nav class="actions"><button id="themeToggle" class="btn btn-ghost">🌓</button></nav>
+    </div>
+  </header>
+  <main class="container">
+    <h1>UI Kit</h1>
+
+    <section>
+      <h2>Buttons</h2>
+      <div class="cta-row">
+        <button class="btn">Primary Button</button>
+        <button class="btn btn-ghost">Ghost Button</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Inputs</h2>
+      <div class="cta-row">
+        <input type="text" class="input" placeholder="Text input" />
+        <select class="input"><option>Option</option></select>
+      </div>
+    </section>
+
+    <section>
+      <h2>Avatars</h2>
+      <div class="cta-row">
+        <img src="/assets/img/author-avatar.jpg" alt="Small" class="avatar-small" />
+        <img src="/assets/img/author-avatar.jpg" alt="Large" class="avatar-large" />
+        <img src="/assets/img/author-avatar.jpg" alt="Tiny" class="avatar-tiny" />
+      </div>
+    </section>
+
+    <section>
+      <h2>Card</h2>
+      <div style="max-width:300px">
+        <article class="card">
+          <img class="thumb" src="/assets/img/cover-placeholder.jpg" alt="Обложка" />
+          <div class="body">
+            <h3>Название книги</h3>
+            <p>Краткое описание</p>
+            <div class="tags">
+              <span class="tag">Tag 1</span>
+              <span class="tag">Tag 2</span>
+            </div>
+          </div>
+          <div class="progress"><span style="width:50%"></span></div>
+          <div class="body">
+            <a class="btn" href="#">Открыть</a>
+            <a class="btn btn-ghost" href="#">Продолжить</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Reader Elements</h2>
+      <div class="reader-layout">
+        <aside class="reader-aside">
+          <div class="reader-panel">
+            <h4>Навигация</h4>
+            <div class="reader-controls">
+              <a class="btn btn-ghost" href="#">← Предыдущая</a>
+              <a class="btn" href="#">Следующая →</a>
+            </div>
+          </div>
+        </aside>
+        <article class="reader-main">
+          <div class="reader-article">
+            <h1>Заголовок</h1>
+            <p class="meta">Стр. 1</p>
+            <p>Пример текста. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+            <blockquote>Цитата</blockquote>
+          </div>
+          <nav class="reader-nav">
+            <a class="btn btn-ghost" href="#">← Назад</a>
+            <a class="btn" href="#">Дальше →</a>
+          </nav>
+        </article>
+      </div>
+    </section>
+
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Виталик</div>
+      <div class="footer-links"><a href="#" id="toTop">Наверх ↑</a></div>
+    </div>
+  </footer>
+  <script src="/assets/js/app.js" defer></script>
+</body>
+</html>
