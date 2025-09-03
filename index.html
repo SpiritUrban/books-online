@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Книги Виталика — каталог</title>
+    <meta name="description" content="Онлайн-библиотека Виталика: книги серии НАСТАВНИК и другие проекты." />
+    <meta property="og:title" content="Книги Виталика — каталог" />
+    <meta property="og:description" content="Онлайн-библиотека Виталика: книги серии НАСТАВНИК и другие проекты." />
+    <meta property="og:image" content="/assets/img/cover-placeholder.jpg" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+</head>
+
+<body data-page="catalog">
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand">
+                <a href="/"><strong>VITALIK BOOKS</strong></a>
+                <span class="tagline">онлайн-чтение • серия «НАСТАВНИК» • эссе, практика, философия</span>
+            </div>
+            <nav class="actions">
+                <button id="themeToggle" class="btn btn-ghost" aria-label="Переключить тему">🌓</button>
+            </nav>
+        </div>
+    </header>
+
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Библиотека Виталика</h1>
+                <p class="lead">Живые книги про разработку, мышление, практики и путь. Читай онлайн, сохраняй прогресс,
+                    подписывайся на новые главы.</p>
+                <div class="cta-row">
+                    <a class="btn" href="#catalog">Перейти к книгам</a>
+                    <a class="btn btn-ghost" href="https://t.me/" target="_blank" rel="noopener">Подписаться в
+                        Telegram</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="/assets/img/cover-placeholder.jpg" alt="Книги Виталика" loading="lazy" />
+            </div>
+        </section>
+
+
+        <section id="catalog" class="catalog">
+            <div class="catalog-head">
+                <h2>Книги</h2>
+                <div class="filters">
+                    <input id="search" class="input" type="search" placeholder="Поиск по названию, тегам…" />
+                    <select id="tagFilter" class="input">
+                        <option value="">Все теги</option>
+                    </select>
+                </div>
+            </div>
+            <div id="booksGrid" class="grid"></div>
+        </section>
+    </main>
+
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div>
+                © <span id="year"></span> Виталик. Авторство и права защищены.
+            </div>
+            <div class="footer-links">
+                <a href="https://youtube.com/" target="_blank" rel="noopener">YouTube</a>
+                <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+                <a href="#" id="toTop">Наверх ↑</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="/assets/js/app.js" defer></script>
+</body>
+
+</html>
