@@ -62,10 +62,13 @@
       function renderCard(b){
         const last = Number(localStorage.getItem('lastPage:'+b.slug) || '1');
         const progress = b.pages ? Math.min(100, Math.round((last-1)/b.pages*100)) : 0;
+        const landingUrl = (b.url || `books/${b.slug}/`).replace(/^\//, '');
+        const continueUrl = `books/${b.slug}/pages/${String(localStorage.getItem('lastPage:'+b.slug)||'001').padStart(3,'0')}.html`;
+        const cover = (b.cover || 'assets/img/cover-placeholder.jpg').replace(/^\//, '');
         return `
           <article class="card">
-            <a href="${b.url||('books/'+b.slug+'/')}" aria-label="Открыть книгу ${b.title}">
-              <img class="thumb" src="${b.cover}" alt="Обложка ${b.title}" loading="lazy" />
+            <a href="${landingUrl}" aria-label="Открыть книгу ${b.title}">
+              <img class="thumb" src="${cover}" alt="Обложка ${b.title}" loading="lazy" onerror="this.src='assets/img/cover-placeholder.jpg'" />
             </a>
             <div class="body">
               <h3>${b.title}</h3>
@@ -74,8 +77,8 @@
             </div>
             <div class="progress" title="Прогресс чтения: ${progress}%"><span data-w="${progress}"></span></div>
             <div class="body">
-              <a class="btn" href="${'books/'+b.slug+'/'}">Открыть</a>
-              <a class="btn btn-ghost" href="${'books/'+b.slug+'/pages/'+String(localStorage.getItem('lastPage:'+b.slug)||'001').padStart(3,'0')+'.html'}">Продолжить</a>
+              <a class="btn" href="${landingUrl}">Открыть</a>
+              <a class="btn btn-ghost" href="${continueUrl}">Продолжить</a>
             </div>
           </article>`;
       }
