@@ -3,22 +3,22 @@
     "slug": "nastavnik-12-lichnaya-pobeda",
     "title": "НАСТАВНИК 12 — Личная Победа",
     "subtitle": "",
-    "cover": "/books/nastavnik-12-lichnaya-pobeda/img/cover.jpg",
+    "cover": "books/nastavnik-12-lichnaya-pobeda/img/cover.jpg",
     "tags": [],
     "year": 2025,
     "status": "online",
     "pages": 10,
-    "url": "/books/nastavnik-12-lichnaya-pobeda/"
+    "url": "books/nastavnik-12-lichnaya-pobeda/"
   },
   {
     "slug": "nastavnik-13-primer",
     "title": "НАСТАВНИК 13 — Пример",
     "subtitle": "",
-    "cover": "/books/nastavnik-13-primer/img/cover.jpg",
+    "cover": "books/nastavnik-13-primer/img/cover.jpg",
     "tags": [],
     "year": 2025,
     "status": "online",
     "pages": 10,
-    "url": "/books/nastavnik-13-primer/"
+    "url": "books/nastavnik-13-primer/"
   }
 ]
